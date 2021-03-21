@@ -216,13 +216,18 @@ public class Window extends javax.swing.JFrame {
 
     private void deleteCollectionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCollectionButtonActionPerformed
         // TODO add your handling code here:
-        JFileChooser fc = new JFileChooser();
-        fc.setCurrentDirectory(new File(System.getProperty("user.dir"), "collections"));
-        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY); 
-        fc.setApproveButtonText("Delete");
-        int returnValue = fc.showOpenDialog(this);
-        if (returnValue == JFileChooser.APPROVE_OPTION){
-            File collection = fc.getSelectedFile();
+        String currentCollectionName = collectionsCombo.getItemAt(collectionsCombo.getSelectedIndex());
+        String[] collectionNames = new String[this.collectionsList.length];
+        for (int i = 0; i < this.collectionsList.length; i++) {
+            collectionNames[i] = this.collectionsList[i].getName(); 
+        }
+        
+        String choosenCollection = (String) JOptionPane.showInputDialog(this, "Choisir une collection",
+            "Choix de la collection", JOptionPane.QUESTION_MESSAGE, null,
+            collectionNames, currentCollectionName);
+        
+        if(choosenCollection != null){
+            File collection = new File("collections", choosenCollection);
             String[] imageFiles = collection.list(); 
             if(imageFiles != null){
                 for(String image : imageFiles){
@@ -232,27 +237,40 @@ public class Window extends javax.swing.JFrame {
             }
             collection.delete(); 
             generate();
+            JOptionPane.showMessageDialog(this, "La collection "+choosenCollection+" a bien été supprimée!", "Alert", JOptionPane.INFORMATION_MESSAGE);
         }        
     }//GEN-LAST:event_deleteCollectionButtonActionPerformed
 
     private void deletePhotoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePhotoButtonActionPerformed
         // TODO add your handling code here:
-        String collectionName = collectionsCombo.getItemAt(collectionsCombo.getSelectedIndex());
-        JFileChooser fc = new JFileChooser();
-        fc.setCurrentDirectory(new File("collections", collectionName));
-        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fc.setFileFilter(new FileNameExtensionFilter("Images *.jpg, *.png, *.gif, *.bmp", "jpg", "png", "gif", "bmp"));
-        fc.setApproveButtonText("Delete");
-        int returnValue = fc.showOpenDialog(this);
-        if (returnValue == JFileChooser.APPROVE_OPTION){
-            File collection = fc.getSelectedFile();
-            collection.delete(); 
-            generate();
-        }        
+        String currentCollectionName = collectionsCombo.getItemAt(collectionsCombo.getSelectedIndex());
+        String[] collectionNames = new String[this.collectionsList.length];
+        for (int i = 0; i < this.collectionsList.length; i++) {
+            collectionNames[i] = this.collectionsList[i].getName();
+        }
+        
+        String choosenCollection = (String) JOptionPane.showInputDialog(this, "Choisir une collection",
+            "Choix de la collection", JOptionPane.QUESTION_MESSAGE, null,
+            collectionNames, currentCollectionName);
+        
+        if(choosenCollection != null){
+            JFileChooser fc = new JFileChooser();
+            fc.setCurrentDirectory(new File("collections", choosenCollection));
+            fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            fc.setFileFilter(new FileNameExtensionFilter("Images *.jpg, *.png, *.gif, *.bmp", "jpg", "png", "gif", "bmp"));
+            fc.setApproveButtonText("Delete");
+            int returnValue = fc.showOpenDialog(this);
+            if (returnValue == JFileChooser.APPROVE_OPTION){
+                File collection = fc.getSelectedFile();
+                collection.delete(); 
+                generate();
+            } 
+        }
     }//GEN-LAST:event_deletePhotoButtonActionPerformed
 
     private void addPhotoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPhotoButtonActionPerformed
         // TODO add your handling code here:
+        String currentCollectionName = collectionsCombo.getItemAt(collectionsCombo.getSelectedIndex());
         String[] collectionNames = new String[this.collectionsList.length];
         for (int i = 0; i < this.collectionsList.length; i++) {
             collectionNames[i] = this.collectionsList[i].getName(); 
@@ -260,7 +278,7 @@ public class Window extends javax.swing.JFrame {
         
         String choosenCollection = (String) JOptionPane.showInputDialog(this, "Choisir une collection",
             "Choix de la collection", JOptionPane.QUESTION_MESSAGE, null,
-            collectionNames, collectionNames[0]);
+            collectionNames, currentCollectionName);
         
         if(choosenCollection != null){
             JFileChooser fc = new JFileChooser();
@@ -284,7 +302,6 @@ public class Window extends javax.swing.JFrame {
 
     private void addCollectionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCollectionButtonActionPerformed
         // TODO add your handling code here:
-        //JOptionPane.showMessageDialog(null, "La collection existe déjà!", "Alert", JOptionPane.ERROR_MESSAGE);
         String newCollection = (String)JOptionPane.showInputDialog(this, "Taper le nom de la collection", "Ajouter une Collection", JOptionPane.PLAIN_MESSAGE); 
         if(newCollection != null){
             if ((this.collectionsList != null) && (this.collectionsList.length > 0)) {
