@@ -5,6 +5,8 @@
  */
 package com.mycompany.projet.photo;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -35,12 +37,20 @@ public class Window extends javax.swing.JFrame {
     
     private void generate(){
         this.c = new Collections(); 
-        this.collectionsList = this.c.getCollections(); 
+        this.collectionsList = this.c.getCollections();
+        
+        String currentCollectionName = null; 
+        if(collectionsCombo != null)
+            currentCollectionName = collectionsCombo.getItemAt(collectionsCombo.getSelectedIndex());
+        
         collectionsCombo.removeAllItems();
+        
         if ((this.collectionsList != null) && (this.collectionsList.length > 0)) {
             for(File collection : this.collectionsList){ 
                 collectionsCombo.addItem(collection.getName());
-            }    
+                if((currentCollectionName != null) && (collection.getName().equals(currentCollectionName)))
+                    collectionsCombo.setSelectedItem(currentCollectionName);
+            } 
         }  
     }
 
@@ -61,17 +71,27 @@ public class Window extends javax.swing.JFrame {
         addPhotoButton = new javax.swing.JButton();
         deletePhotoButton = new javax.swing.JButton();
         closeButton = new javax.swing.JButton();
+        precedent = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestionnaire de Collections de Photos");
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
+        collectionsCombo.setFocusable(false);
         collectionsCombo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 collectionsComboItemStateChanged(evt);
             }
         });
 
+        jLabel1.setFocusable(false);
+
         suivant.setText("Photo suivante");
+        suivant.setFocusable(false);
         suivant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 suivantActionPerformed(evt);
@@ -79,6 +99,7 @@ public class Window extends javax.swing.JFrame {
         });
 
         addCollectionButton.setText("Ajouter une Collection");
+        addCollectionButton.setFocusable(false);
         addCollectionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addCollectionButtonActionPerformed(evt);
@@ -86,6 +107,7 @@ public class Window extends javax.swing.JFrame {
         });
 
         deleteCollectionButton.setText("Supprimer une Collection");
+        deleteCollectionButton.setFocusable(false);
         deleteCollectionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteCollectionButtonActionPerformed(evt);
@@ -93,6 +115,7 @@ public class Window extends javax.swing.JFrame {
         });
 
         addPhotoButton.setText("Déposer une Photo");
+        addPhotoButton.setFocusable(false);
         addPhotoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addPhotoButtonActionPerformed(evt);
@@ -100,6 +123,7 @@ public class Window extends javax.swing.JFrame {
         });
 
         deletePhotoButton.setText("Retirer une Photo");
+        deletePhotoButton.setFocusable(false);
         deletePhotoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deletePhotoButtonActionPerformed(evt);
@@ -107,9 +131,18 @@ public class Window extends javax.swing.JFrame {
         });
 
         closeButton.setText("QUITTER");
+        closeButton.setFocusable(false);
         closeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeButtonActionPerformed(evt);
+            }
+        });
+
+        precedent.setText("Photo précédente");
+        precedent.setFocusable(false);
+        precedent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                precedentActionPerformed(evt);
             }
         });
 
@@ -118,23 +151,29 @@ public class Window extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(collectionsCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(addCollectionButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(deleteCollectionButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(addPhotoButton))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE)
+                .addComponent(collectionsCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(addCollectionButton)
+                .addGap(18, 18, 18)
+                .addComponent(deleteCollectionButton)
+                .addGap(18, 18, 18)
+                .addComponent(addPhotoButton)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(deletePhotoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(suivant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(deletePhotoButton, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE)
                     .addComponent(closeButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(precedent)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(suivant, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,13 +185,15 @@ public class Window extends javax.swing.JFrame {
                     .addComponent(deleteCollectionButton)
                     .addComponent(addPhotoButton)
                     .addComponent(deletePhotoButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(suivant)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                    .addComponent(precedent)
+                    .addComponent(suivant))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(closeButton)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
         pack();
@@ -313,10 +354,46 @@ public class Window extends javax.swing.JFrame {
             }
             c.addCollection(newCollection);
             generate();
+            JOptionPane.showMessageDialog(this, "La collection " + newCollection + " a bien été ajoutée!", "Success", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_addCollectionButtonActionPerformed
 
-    
+    private void precedentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precedentActionPerformed
+        // TODO add your handling code here:
+        if(this.currentPhotos != null){
+            Icon currentImage = jLabel1.getIcon();
+            int index = indexOf(this.currentPhotos, currentImage); 
+            if(index == 0){ jLabel1.setIcon(this.currentPhotos[this.currentPhotos.length -1].getImageResized()); }
+            else{jLabel1.setIcon(this.currentPhotos[index-1].getImageResized());}
+        }
+    }//GEN-LAST:event_precedentActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        // TODO add your handling code here:
+        int keyCode = evt.getKeyCode();
+        switch(keyCode){
+           case KeyEvent.VK_RIGHT: 
+               suivantActionPerformed(new ActionEvent(this, WIDTH, "suivant"));
+               break; 
+           case KeyEvent.VK_LEFT: 
+               precedentActionPerformed(new ActionEvent(this, WIDTH, "precedent")); 
+               break;
+           case KeyEvent.VK_DOWN:
+               if(collectionsCombo.getSelectedIndex() == collectionsCombo.getItemCount()-1)
+                   collectionsCombo.setSelectedIndex(0);
+               else
+                   collectionsCombo.setSelectedIndex(collectionsCombo.getSelectedIndex() +1);
+               break; 
+           case KeyEvent.VK_UP: 
+               if(collectionsCombo.getSelectedIndex() == 0)
+                   collectionsCombo.setSelectedIndex(collectionsCombo.getItemCount()-1);
+               else 
+                   collectionsCombo.setSelectedIndex(collectionsCombo.getSelectedIndex() -1);
+               break; 
+        }
+
+    }//GEN-LAST:event_formKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -360,6 +437,7 @@ public class Window extends javax.swing.JFrame {
     private javax.swing.JButton deleteCollectionButton;
     private javax.swing.JButton deletePhotoButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton precedent;
     private javax.swing.JButton suivant;
     // End of variables declaration//GEN-END:variables
 }
