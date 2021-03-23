@@ -1,5 +1,8 @@
 # Gestionnaire-collections-photos
 
+![Capture](https://user-images.githubusercontent.com/74098445/112218367-e80f6880-8c23-11eb-999d-aa33bb12f22f.PNG)
+
+
 ## Class Photo
 ### la classe contient: 
 - deux attributs finals: 
@@ -44,3 +47,25 @@
   - si ce n'est pas la première fosi qu'on fait appel à cette méthode elle garde la dernière collection utilisée
   - on enleve tous les elements de la comboBox 
   - si la liste des collections n'est pas vide, on ajoute les noms de celles ci dans la comboBox, en mettant le selected item sur la dernière utilisée si elle existe toujours 
+
+## Les fonctionnalités de l'interface 
+- ### selectionner un item dans la comboBox (collectionsComboItemStateChanged) : 
+  - la méthode récupère l'item selectionnée (collectionName)
+  - elle le recherche dans la liste des collections (si elle n'est pas vide) 
+  - si la collection est dans la liste on projète sur le jLabel la première image de la collection 
+  - sinon on affiche le texte "Empty collection!"
+- ### Suivant & Précédent (suivantActionPerformed & precedentActionPerformed): 
+  - si le tableau currentPhotos n'est pas nul 
+  - la méthode récupère l'icon dans le jLabel 
+  - elle recherche son index dans le tableau grâce à la méthode <strong>indexOf</strong>
+  - on projète l'image suivante (ou précédente) dans le jLabel 
+- ### Ajouter une collection :
+  - avec JOptionPane, l'utilisateur saisit le nom de la collection qu'il va ajouter. <br>
+![Capture](https://user-images.githubusercontent.com/74098445/112220816-f6ab4f00-8c26-11eb-8548-589c199e6550.PNG) 
+  - la méthode récupère le nom de la nouvelle collection 
+  - on recherche d'abord si la collection existe déjà, on afficher une alert
+  - sinon on fait appel à la méthode <strong>addCollection</strong> de la classe Collections
+  - on fait ensuite appel à la methode <strong>generate</strong> pour regenérer la comboBox 
+  - on afficher ensuie une alerte pour informer l'utilisateur de son ajout
+- ### Supprimer une collection :
+  - 
