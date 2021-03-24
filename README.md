@@ -95,3 +95,10 @@
   - on ajoute aussi un filtre, pour n'accepter que les images (jpg, png, gif, bmp)
   - on recupère l'image choisi, et on la supprime.
   - on fait appel à <strong>generate</strong> pour réinitialiser la liste des collections 
+## La fonctionnalité de plus - Key Event - 
+- Pour changer de collection utiliser les touches ⬆ & ⬇
+- Pour changer de photos utiliser les touches ⬅ & ➡
+- ### formKeyPressed : 
+  - on enlève le focus à toutes les composantes de l'interface (sauf la fenêtre en elle même) 
+  - on recupère le code de la touche appuyée
+  - avec un switch, on fait appel à la méthode qu'il faut.
