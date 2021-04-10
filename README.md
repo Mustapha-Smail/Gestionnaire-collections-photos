@@ -7,7 +7,7 @@
 ### la classe contient: 
 - deux attributs finals: 
   - File image (fichier image) 
-  - Icon imageIcon (l'image redimensionnée aux dimensions du label) // getSclaedInstance
+  - Icon imageIcon (l'image redimensionnée aux dimensions du label) // getScaledInstance
 
 - deux accesseurs en lecture: 
   - getImage -> retourner le fichier image (l'original) 
@@ -16,7 +16,7 @@
 ## Class Collections 
 ### la classe contient : 
 - un attribut final : 
-  - File rep (le repertoire collections, là où il y'a tout!)
+  - File rep (le repertoire collections, là où il y a tout!)
 - Le constructeur: 
   - il vérifie si le répertoire collections existe déja dans le projet, sinon le créer.
 - accesseur en lecture: 
