@@ -43,8 +43,8 @@
 ### Les méthodes de la classe: 
 - generate: 
   - elle initialise l'attribut 'c' (collections)
-  - elle stock la liste des collections dans l'attribut collectionsList en faisant appel à la méthode <strong>getCollections</strong> de la classe Collections
-  - si ce n'est pas la première fosi qu'on fait appel à cette méthode elle garde la dernière collection utilisée
+  - elle stocke la liste des collections dans l'attribut collectionsList en faisant appel à la méthode <strong>getCollections</strong> de la classe Collections
+  - si ce n'est pas la première fois qu'on fait appel à cette méthode elle garde la dernière collection utilisée
   - on enleve tous les elements de la comboBox 
   - si la liste des collections n'est pas vide, on ajoute les noms de celles ci dans la comboBox, en mettant le selected item sur la dernière utilisée si elle existe toujours 
 
@@ -63,7 +63,7 @@
   - avec JOptionPane, l'utilisateur saisit le nom de la collection qu'il va ajouter. <br>
 ![Capture](https://user-images.githubusercontent.com/74098445/112220816-f6ab4f00-8c26-11eb-8548-589c199e6550.PNG) 
   - la méthode récupère le nom de la nouvelle collection 
-  - on recherche d'abord si la collection existe déjà, on afficher une alert
+  - on recherche d'abord si la collection existe déjà, on affiche une alerte
   - sinon on fait appel à la méthode <strong>addCollection</strong> de la classe Collections
   - on fait ensuite appel à la methode <strong>generate</strong> pour regenérer la comboBox 
   - on afficher ensuie une alerte pour informer l'utilisateur de son ajout
@@ -84,16 +84,16 @@
   - on crée ensuite un JFileChooser et on défini le répertoire d'ouverture sur le dossier de téléchargement.
   - le JFilechooser n'accepte que les fichiers (FILES_ONLY)
   - on ajoute aussi un filtre, pour n'accepter que les images (jpg, png, gif, bmp)
-  - on recupère l'image choisi, on ouvre la collection, et on la copie dans cette dernière.
+  - on recupère l'image choisie, on ouvre la collection, et on la copie dans cette dernière.
   - on fait appel à <strong>generate</strong> pour réinitialiser la liste des collections 
 - ### Retirer une photo (deletePhotoButtonActionPerformed) : 
   -  on récupère la collection en cours d'utilisation (currentCollectionName)
   - on crée un tableau qui regroupe les noms de collections 
-  - on affiche un JOptionPane (boite de dialogue) afin que l'utilisateur choisisse la collection où supprimer une photo, à défault c'est la collection en cours qui est selectionnée.
+  - on affiche un JOptionPane (boite de dialogue) afin que l'utilisateur choisisse la collection où supprimer une photo, à défaut c'est la collection en cours qui est selectionnée.
   - on crée ensuite un JFileChooser et on défini le répertoire d'ouverture sur le choix de l'utilisateur.
   - le JFilechooser n'accepte que les fichiers (FILES_ONLY)
   - on ajoute aussi un filtre, pour n'accepter que les images (jpg, png, gif, bmp)
-  - on recupère l'image choisi, et on la supprime.
+  - on recupère l'image choisie, et on la supprime.
   - on fait appel à <strong>generate</strong> pour réinitialiser la liste des collections 
 ## La fonctionnalité de plus - Key Event - 
 - Pour changer de collection utiliser les touches ⬆ & ⬇
