@@ -91,7 +91,7 @@
   - on crée un tableau qui regroupe les noms de collections 
   - on affiche un JOptionPane (boite de dialogue) afin que l'utilisateur choisisse la collection où supprimer une photo, à défaut c'est la collection en cours qui est selectionnée.
   - on crée ensuite un JFileChooser et on défini le répertoire d'ouverture sur le choix de l'utilisateur.
-  - le JFilechooser n'accepte que les fichiers (FILES_ONLY)
+  - le JFilechooser n'accepte que les fichiers (FILES_ONLY) 
   - on ajoute aussi un filtre, pour n'accepter que les images (jpg, png, gif, bmp)
   - on recupère l'image choisie, et on la supprime.
   - on fait appel à <strong>generate</strong> pour réinitialiser la liste des collections 
